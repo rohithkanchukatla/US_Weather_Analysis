@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_raw_data
+    description: "Staged weather data with extreme weather flags and standard units."
+
+
+    columns:
+      - name: station_id
+        description: "id of the station "
+        tests:
+          - not_null
+
+      - name: station_name
+        description: "The name of the location (e.g., Chicago, Phoenix)."
+        tests:
+          - not_null  
+
+      - name: record_date
+        description: "The date the weather was recorded."
+        tests:
+          - not_null  
+
+      - name: avg_temp_fahrenheit
+        description: "Mean daily temperature in Fahrenheit."
+        tests:
+          - not_null
+
