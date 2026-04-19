@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: dim_stations
+    description: "Dimension table with airport metadata and custom climate regional groups."
+    columns:
+      - name: station_id
+        tests:
+          - not_null
+      - name: climate_region
+        description: "Custom regional categories: Gulf Coast, Midwest, Northeast, West Coast, Southeast."
+
+  - name: fct_weather_daily_readings
+    description: "Fact table containing daily metrics and extreme weather flags."
+    columns:
+      - name: weather_pk
+        tests:
+          - unique
+          - not_null

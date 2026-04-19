@@ -1,0 +1,8 @@
+sources:
+  - name: raw_data
+    database: de-zoomcampfinalproject
+    schema: weather_dataset
+    
+    tables:
+      - name: weather_raw_partitioned
+  
