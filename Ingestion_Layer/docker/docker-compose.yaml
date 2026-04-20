@@ -8,9 +8,3 @@ services:
     environment:
       - PREFECT_API_URL=http://localhost:4200/api
 
-  weather-pipeline:
-    build: .
-    depends_on:
-      - prefect-server
-    environment:
-      - PREFECT_API_URL=http://prefect-server:4200/api
