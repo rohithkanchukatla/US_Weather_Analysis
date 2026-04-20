@@ -1,129 +1,186 @@
-#Problem Statement
-##How do regional geographic locations in the US impact the frequency and severity of extreme weather events like heavyrains, heatwaves and heavy precipitation?”
+# 🌎 A Nation of Extremes: Weather Data Engineering Pipeline
 
-This project builds an end-to-end batch data pipeline to analyze  weather data across major U.S. climate regions for the years 2024 and 2025
-and derive insights through structured modeling and dashboards.
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Prefect](https://img.shields.io/badge/Orchestration-Prefect-orange)
+![GCP](https://img.shields.io/badge/Cloud-GCP-green)
+![dbt](https://img.shields.io/badge/Transformation-dbt-yellow)
+![BigQuery](https://img.shields.io/badge/Warehouse-BigQuery-blueviolet)
 
-<img width="975" height="645" alt="image" src="https://github.com/user-attachments/assets/de135ffa-0b4e-444e-b118-3a69a6cd7451" /> 
-This report compares daily maximum temperatures across different U.S. climate regions, highlighting consistent differences in temperature patterns. 
+---
 
-<img width="975" height="646" alt="image" src="https://github.com/user-attachments/assets/96e6e431-1096-4734-b1db-44d56998b476" />
-This report compares the frequency of heavy rain days versus clear days across different climate regions. It highlights that regions like the Gulf Coast experience significantly more heavy rainfall compared to others.
+## 📌 Problem Statement
 
+> **How do regional geographic locations in the US impact the frequency and severity of extreme weather events like heavy rain and heatwaves?**
 
-#Data pipeline flow architecture:
-NOAA API
-   ↓
-Python Ingestion Script (Prefect Flow)
-   ↓
-Google Cloud Storage (Raw Layer )
-   ↓
-BigQuery (Data Warehouse)
-   ↓
-dbt (Staging → Intermediate → Marts)
-   ↓
-Fact + Dimension Tables (Star Schema)
-   ↓
-Looker Studio Dashboard
+This project builds an **end-to-end batch data pipeline** to analyze weather data across major U.S. climate regions for the years **2024–2025**, enabling structured analytics and visualization.
 
-#Tech Stack
-Infrastructure → Terraform (GCS Bucket, BigQuery Dataset)
-Orchestration → Prefect
-Ingestion → Python (Requests, Pandas)
-Storage (Data Lake) → Google Cloud Storage (GCS)
-Data Warehouse → BigQuery
-Transformation → dbt (Medallion Architecture)
-Visualization → Looker Studio
+---
 
-#Data Pipeline Overview
-##1. Ingestion Layer
-Extracts weather data from NOAA GSOD API
-Processes data for selected U.S. stations
-Loads data into GCS as partitioned Parquet files
-##2. Batch Processing (Prefect)
-Flow defined using Prefect
-Deployment created using deployment.yaml
-Scheduled to run daily for batch ingestion
-##3. Storage Layer
-Raw data stored in GCS:
-raw/weather/year=YYYY/station_name.parquet
-##4. Transformation Layer (dbt)
-Staging models clean raw data
-Intermediate models standardize transformations
-Marts layer builds:
-Fact table (weather metrics)
-Dimension table (station metadata)
-Enriched model (joined dataset)
-##5. Reporting Layer
-Looker Studio connected to BigQuery
-Built 2 analytical dashboards to answer problem statement
+## 📊 Final Reports
+
+### 📈 Regional Climate Gap: Daily Temperature Trends
+
+![Climate Gap](https://github.com/user-attachments/assets/de135ffa-0b4e-444e-b118-3a69a6cd7451)
+
+✔ Highlights seasonal variation  
+✔ Shows temperature differences across climate regions  
+
+---
+
+### 🌧️ Heavy Rain vs Clear Days by Region
+
+![Rain vs Clear](https://github.com/user-attachments/assets/96e6e431-1096-4734-b1db-44d56998b476)
+
+✔ Compares extreme precipitation events  
+✔ Identifies high-rainfall regions (e.g., Gulf Coast)  
+
+---
+
+## 🏗️ Architecture
 
 
-#Data Model
-⭐ Fact Table
-Temperature metrics
-Precipitation
-Extreme event flags:
-Heatwave
-Freeze
-Heavy rain
 
-📘 Dimension Table
-Station id
-Climate region
-State
 
-#Reproducibility Guide
 
-##1. Clone Repository
+---
+
+## ⚙️ Tech Stack
+
+| Layer | Tools |
+|------|------|
+| Infrastructure | Terraform |
+| Orchestration | Prefect |
+| Ingestion | Python (Requests, Pandas) |
+| Storage | Google Cloud Storage (GCS) |
+| Data Warehouse | BigQuery |
+| Transformation | dbt |
+| Visualization | Looker Studio |
+
+---
+
+## 🔄 Pipeline Overview
+
+### 🟢 Ingestion Layer
+- Extracts data from NOAA GSOD API  
+- Processes 5 U.S. stations  
+- Stores data in GCS as **partitioned Parquet files**
+<img width="1596" height="891" alt="image" src="https://github.com/user-attachments/assets/be5ed51a-c320-4017-b236-b5051cf6c876" />
+
+---
+
+### ⏱️ Batch Processing
+- Prefect flow orchestrates ingestion  
+- Deployment configured using `deployment.yaml`  
+- Runs on a **daily schedule**
+<img width="1596" height="891" alt="image" src="https://github.com/user-attachments/assets/7bff9dac-9329-44d5-9d68-a83d2c4a897b" />
+
+---
+
+### 🟡 Storage Layer
+-Gcs bucket
+<img width="1270" height="485" alt="image" src="https://github.com/user-attachments/assets/bb279895-939a-4383-9475-34debfef29d7" />
+
+
+---
+
+### 🔵 Transformation Layer (dbt)
+- **Staging** → Data cleaning  
+- **Intermediate** → Standardization  
+- **Marts** → Business-ready models
+
+Medallion Architecture
+ <img width="975" height="362" alt="image" src="https://github.com/user-attachments/assets/2d57c803-33e3-478e-be55-1637c8b29a5a" />
+
+
+Outputs:
+- Fact table  
+- Dimension table  
+- Enriched data table 
+
+---
+
+### 📊 Reporting Layer
+- Looker Studio connected to BigQuery  
+- Dashboards built to answer problem statement  
+
+---
+
+## 🧱 Data Model
+
+### ⭐ Fact Table
+- Temperature metrics  
+- Precipitation  
+- Flags:
+  - Heatwave  
+  - Freeze  
+  - Heavy rain  
+
+---
+
+### 📘 Dimension Table
+- Station ID  
+- Climate region  
+- State  
+
+---
+
+## 🔁 Reproducibility Guide
+
+###⚠️ Notes for later
+Prefect blocks require manual setup
+Python must be installed locally
+Deployment YAML uses relative paths for portability
+
+Follow these steps to run the project:
+---
+
+### 1️⃣ Clone Repository
+
+```bash
 git clone <your-repo-url>
 cd US_Weather_Analysis
-##2. Setup Infrastructure (Terraform)
+
+###2️⃣ Setup Infrastructure (Terraform)
 cd terraform
 terraform init
 terraform apply
 
-This creates:
-GCS bucket
-BigQuery dataset
-
-
-##3. Start Prefect Server (Docker)
+###3️⃣ Start Prefect Server
 docker-compose up
+👉 Open UI: http://localhost:4200
 
- Open Prefect server UI accessible at http://localhost:4200
+###4️⃣ Configure Prefect Blocks (Manual Step)
+<img width="975" height="478" alt="image" src="https://github.com/user-attachments/assets/7eee8155-ebb4-465b-b1c1-67a8d9b8691d" />
 
-##Configure Prefect Blocks (Manual Step)
-In Prefect UI:
-Search for Gcp integrations:
-<img width="975" height="478" alt="image" src="https://github.com/user-attachments/assets/725e083d-64f3-4438-b337-9d13b0ce2831" />
+🔐 GCP Credentials Block
+Add service account JSON
+🪣 GCS Bucket Block
+Bucket name must match your GCS bucket
+<img width="975" height="687" alt="image" src="https://github.com/user-attachments/assets/81b5e25b-c16b-47dc-91bf-dcec9374c0bd" />
 
-Create a GCP Credentials Block, where in paste the service account details so prefect server can authenticate with GCP.
-And Create GCS Bucket Block, very important in the bucket name make sure you have the same name that you have set in GCP.
-<img width="975" height="687" alt="image" src="https://github.com/user-attachments/assets/a06e0fe9-c6c7-49c8-8abb-d5358f44dc79" />
+Link both GCP Credentials Block and GCS Bucket Block by clicking the Add button in the above image when creating the Gcs Bucket block.
 
---Once you enter the bucket name, For the GCP credentials, when you hit the Add button shown in the image,
-the gcp credentials block that you have created before will show up, select that save the block.
-
-##5. Run Ingestion Pipeline
+###5️⃣ Run Ingestion Pipeline
 python3 ingest_weather.py
+to register the first flow in the prefect server, and load data to GCS.
 
-👉 This registers the flow and ingests data into GCS bucket.
-
-##6. Create Deployment (Batch Scheduling)
+###6️⃣ Create Deployment (Batch Scheduling)
 prefect deployment apply deployment.yaml
 
-👉 This sets up:
-Daily scheduled batch pipeline
+Will create a daily batch scheduling pipeline.
 
-
-##7. Run dbt Transformations
+###7️⃣ Run dbt Transformations
 cd dbt_project
 dbt run
 dbt test
 
-Eventually you can run reports in Looker studio with the fact, dimension and enriched_data table for analytics.
-
+###8️⃣ View Dashboards
+Open Looker Studio
+Connect to BigQuery
+Use:
+Fact table
+Dimension table
+Enriched data table
 
 
 
