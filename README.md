@@ -38,6 +38,8 @@ This project builds a data pipeline to analyze weather data across major U.S. cl
 
 ## 🏗️ Architecture
 
+<img width="975" height="532" alt="image" src="https://github.com/user-attachments/assets/4cc362dd-8a6c-4d47-864a-6412c6efe460" />
+
 
 
 
@@ -63,7 +65,10 @@ This project builds a data pipeline to analyze weather data across major U.S. cl
 ### 🟢 Ingestion Layer
 - Extracts data from NOAA GSOD API  
 - Processes 5 U.S. stations  
-- Stores data in GCS as **partitioned Parquet files**
+- Stores data in GCS as **Parquet files**
+
+ <img width="975" height="391" alt="image" src="https://github.com/user-attachments/assets/8b2bdc4f-507e-4dad-ad4c-630bcabe380e" />
+
 
 
 ---
@@ -81,7 +86,7 @@ This project builds a data pipeline to analyze weather data across major U.S. cl
 ---
 
 ### 🟡 Storage Layer
--Gcs bucket
+
 <img width="1270" height="485" alt="image" src="https://github.com/user-attachments/assets/bb279895-939a-4383-9475-34debfef29d7" />
 
 
@@ -128,10 +133,6 @@ Outputs:
 - State  
 
 ---
-
-Your Markdown file is already very strong, but to make it truly "Senior Data Engineer" quality for your peer reviewers, we need to fix the formatting (some code blocks aren't closed), tighten the technical language, and ensure the steps flow logically.
-
-Here is the "Fixed & Professional" version. I have added a Table of Contents, fixed the code block syntax, and used a more technical "Medallion/Star Schema" description for the dbt section.
 
 # 🔁 Reproducibility & Deployment Guide
 
