@@ -138,7 +138,7 @@ Deployment YAML uses relative paths for portability
 
 Follow these steps to run the project:
 ---
-```bash
+
 ### 1️⃣ Clone Repository
 
 
