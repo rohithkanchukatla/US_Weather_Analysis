@@ -12,11 +12,11 @@
 
 > **How do regional geographic locations in the US impact the frequency and severity of extreme weather events like heavy rain and heatwaves?**
 
-This project builds an **end-to-end batch data pipeline** to analyze weather data across major U.S. climate regions for the years **2024–2025**, enabling structured analytics and visualization.
+This project builds a data pipeline to analyze weather data across major U.S. climate regions for the years 2024–2025, enabling structured analytics and visualization.
 
 ---
 
-## 📊 Final Reports
+## 📊 Reports
 
 ### 📈 Regional Climate Gap: Daily Temperature Trends
 
@@ -68,10 +68,14 @@ This project builds an **end-to-end batch data pipeline** to analyze weather dat
 
 ---
 
-### ⏱️ Batch Processing
-- Prefect flow orchestrates ingestion  
-- Deployment configured using `deployment.yaml`  
-- Runs on a **daily schedule**
+##  ⏱️ Batch Processing
+- The pipeline is made to run daily using Prefect deployment.
+- Currently, to keep things simple, the pipeline processes selected historical years (2024–2025), but it can be extended to support dynamic year selection so
+  the batch processing makes more sense.
+- That will allow automated ingestion of data from NOAA GSOD API
+- Future enhancements can include incremental ingestion and backfill strategies.
+ 
+- I have configured my prefect deployment to  run on a **daily schedule** as an example
 <img width="1596" height="891" alt="image" src="https://github.com/user-attachments/assets/7bff9dac-9329-44d5-9d68-a83d2c4a897b" />
 
 ---
@@ -165,9 +169,8 @@ Link both GCP Credentials Block and GCS Bucket Block by clicking the Add button 
 python3 ingest_weather.py
 to register the first flow in the prefect server, and load data to GCS.
 
-###6️⃣ Create Deployment (Batch Scheduling)
+###6️⃣ Create a Deployment (Batch Scheduling)
 prefect deployment apply deployment.yaml
-
 Will create a daily batch scheduling pipeline.
 
 ###7️⃣ Run dbt Transformations
