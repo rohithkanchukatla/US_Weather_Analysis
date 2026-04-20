@@ -1,0 +1,56 @@
+###
+### A complete description of a Prefect Deployment for flow 'US Climate Pulse Ingestion'
+###
+name: daily-weather-deployment
+description: 'The main manager for your orchestrated DAG [cite: 154, 574]'
+version: b2fb95cfa6c2892b2d0f9bf2e3467e3c
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+work_pool_name: null
+tags: []
+parameters: {}
+schedule: null
+schedules:
+- schedule:
+    interval: 86400.0
+    anchor_date: '2026-04-20T05:23:54.888519+00:00'
+    timezone: UTC
+  active: true
+is_schedule_active: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: US Climate Pulse Ingestion
+manifest_path: null
+storage: null
+path: .
+entrypoint: ingest_weather.py:us_weather_ingestion_flow
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    years:
+      default:
+      - 2024
+      - 2025
+      items: {}
+      position: 0
+      title: years
+      type: array
+  required: null
+  definitions: null
+timestamp: '2026-04-20T05:23:54.891070+00:00'
+triggers: []
+enforce_parameter_schema: null
