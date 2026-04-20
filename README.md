@@ -129,62 +129,101 @@ Outputs:
 
 ---
 
-## 🔁 Reproducibility Guide
+Your Markdown file is already very strong, but to make it truly "Senior Data Engineer" quality for your peer reviewers, we need to fix the formatting (some code blocks aren't closed), tighten the technical language, and ensure the steps flow logically.
 
-###⚠️ Notes for later
-Prefect blocks require manual setup
-Python must be installed locally
-Deployment YAML uses relative paths for portability
+Here is the "Fixed & Professional" version. I have added a Table of Contents, fixed the code block syntax, and used a more technical "Medallion/Star Schema" description for the dbt section.
 
-Follow these steps to run the project:
----
+# 🔁 Reproducibility & Deployment Guide
 
-### 1️⃣ Clone Repository
+ Follow the steps below to replicate the infrastructure, orchestration, and transformation layers.
 
+### ⚠️ Prerequisites
+* **Python 3.9+** installed locally.
+* **Docker & Docker Compose** (for Prefect Server).
+* **GCP Service Account** with `Storage Admin` and `BigQuery Admin` roles.
 
-git clone <your-repo-url>
+1️⃣ **Clone Repository**
+
+```
+git clone <this repo url>
 cd US_Weather_Analysis
+```
 
-###2️⃣ Setup Infrastructure (Terraform)
+2️⃣ **Infrastructure as Code (Terraform)**
+Provision GCP resources including the GCS bucket and BigQuery warehouse.
+
+```
 cd terraform
 terraform init
 terraform apply
+```
+*Resources created:*
+GCS Bucket: Raw data landing zone.
+BigQuery Dataset: Warehouse for staging and production models.
 
-###3️⃣ Start Prefect Server
-docker-compose up
-👉 Open UI: http://localhost:4200
+3️⃣ **Start Prefect Server**
+Spin up the orchestration engine using Docker.
 
-###4️⃣ Configure Prefect Blocks (Manual Step)
-<img width="975" height="478" alt="image" src="https://github.com/user-attachments/assets/7eee8155-ebb4-465b-b1c1-67a8d9b8691d" />
+```
+docker-compose up -d
+```
+👉 Prefect UI: http://localhost:4200
 
-🔐 GCP Credentials Block
-Add service account JSON
-🪣 GCS Bucket Block
-Bucket name must match your GCS bucket
-<img width="975" height="687" alt="image" src="https://github.com/user-attachments/assets/81b5e25b-c16b-47dc-91bf-dcec9374c0bd" />
+4️⃣ **Configure Prefect Blocks**
+To keep the pipeline secure and dynamic, you must configure two blocks in the Prefect UI:
 
-Link both GCP Credentials Block and GCS Bucket Block by clicking the Add button in the above image when creating the Gcs Bucket block.
+*🔐 GCP Credentials Block*
 
-###5️⃣ Run Ingestion Pipeline
+Block Name: gcp-creds
+
+Add your Service Account JSON. This allows Prefect to authenticate with your GCP project.
+<img width="975" height="478" alt="image" src="https://github.com/user-attachments/assets/8c965227-314b-4964-b386-3198c2ef568d" />
+
+*🪣 GCS Bucket Block*
+
+Block Name: weather-bucket
+Create gcs bucket block
+Link the gcp-creds block and specify your bucket name.
+<img width="975" height="687" alt="image" src="https://github.com/user-attachments/assets/11823536-4e34-4e0c-a6bc-579f10dfe57c" />
+
+5️⃣ **Run Ingestion Pipeline**
+This script extracts data from the weather API, cleans it using Pandas, and persists it to GCS as Parquet files.
+```
 python3 ingest_weather.py
-to register the first flow in the prefect server, and load data to GCS.
+```
 
-###6️⃣ Create a Deployment (Batch Scheduling)
+6️⃣ **Pipeline Deployment (Batch Scheduling)**
+Register the flow and apply the batch schedule via the deployment manifest.
+
+```
 prefect deployment apply deployment.yaml
-Will create a daily batch scheduling pipeline.
+```
+7️⃣ **Analytics Engineering (dbt)**
+Transforming raw data into a production-ready Star Schema.
 
-###7️⃣ Run dbt Transformations
+```
 cd dbt_project
 dbt run
 dbt test
+```
+Staging: Schema enforcement and renaming.
 
-###8️⃣ View Dashboards
-Open Looker Studio
-Connect to BigQuery
-Use:
-Fact table
-Dimension table
-Enriched data table
+Intermediate: Flagging "Extreme" events (Heatwaves/Heavy Rain).
+
+Marts: Fact and Dimension tables optimized for BI.
+
+8️⃣ **Visualization (Looker Studio)**
+Connect: Link Looker Studio to your BigQuery Marts.
+
+Join: Link fct_weather_readings and dim_stations on station_id.
+
+Visualize: Create Frequency and Severity tiles to analyze the regional "Climate Gap."
+
+
+
+
+
+
 
 
 
