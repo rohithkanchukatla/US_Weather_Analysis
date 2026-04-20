@@ -138,10 +138,10 @@ Deployment YAML uses relative paths for portability
 
 Follow these steps to run the project:
 ---
-
+```bash
 ### 1️⃣ Clone Repository
 
-```bash
+
 git clone <your-repo-url>
 cd US_Weather_Analysis
 
