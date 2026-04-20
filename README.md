@@ -64,7 +64,7 @@ This project builds an **end-to-end batch data pipeline** to analyze weather dat
 - Extracts data from NOAA GSOD API  
 - Processes 5 U.S. stations  
 - Stores data in GCS as **partitioned Parquet files**
-<img width="1596" height="891" alt="image" src="https://github.com/user-attachments/assets/be5ed51a-c320-4017-b236-b5051cf6c876" />
+
 
 ---
 
@@ -89,7 +89,8 @@ This project builds an **end-to-end batch data pipeline** to analyze weather dat
 - **Marts** → Business-ready models
 
 Medallion Architecture
- <img width="975" height="362" alt="image" src="https://github.com/user-attachments/assets/2d57c803-33e3-478e-be55-1637c8b29a5a" />
+<img width="1538" height="430" alt="image" src="https://github.com/user-attachments/assets/6763e10a-c5f6-4666-9beb-7f5629a7533c" />
+
 
 
 Outputs:
